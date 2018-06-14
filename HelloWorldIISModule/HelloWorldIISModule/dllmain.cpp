@@ -1,4 +1,4 @@
-﻿// dllmain.cpp : Defines the entry point for the DLL application.
+// dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
@@ -43,9 +43,10 @@ public:
 private:
     HANDLE _eventLog;
 
-    BOOL WriteEvent(LPCWSTR message)
+    BOOL WriteEvent(std::wstring message)
     {
-        return ReportEvent(_eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &message, NULL);
+        auto s = message.c_str();
+        return ReportEvent(_eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &s, NULL);
     }
 };
 
@@ -88,9 +89,10 @@ public:
 private:
     HANDLE _eventLog;
 
-    BOOL WriteEvent(LPCWSTR message)
+    BOOL WriteEvent(std::wstring message)
     {
-        return ReportEvent(_eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &message, NULL);
+        auto s = message.c_str();
+        return ReportEvent(_eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &s, NULL);
     }
 };
 
@@ -132,7 +134,7 @@ private:
 
 HRESULT __stdcall RegisterModule(DWORD serverVersion, IHttpModuleRegistrationInfo * moduleInfo, IHttpServer * globalInfo)
 {
-    LPCWSTR message = L"Hello from RegisterModule";
+    auto message = L"Hello from RegisterModule";
 
     HANDLE eventLog = RegisterEventSource(NULL, L"RegisterModule");
     ReportEvent(eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &message, NULL);
