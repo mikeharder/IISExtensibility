@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27808.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloWorldIISModule", "HelloWorldIISModule\HelloWorldIISModule.vcxproj", "{011F3755-CAE9-486D-9FCD-C691DBD70BDE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{838735F4-F1EE-4F6C-A0DE-DC4C77912681}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
