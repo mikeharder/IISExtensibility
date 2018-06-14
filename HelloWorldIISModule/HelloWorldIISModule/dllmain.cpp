@@ -113,7 +113,7 @@ public:
 
     HRESULT GetHttpModule(OUT CHttpModule ** module, IN IModuleAllocator * allocator) {
         WriteEvent(L"GetHttpModule()");
-        *module = new HelloWorldHttpModule;
+        *module = std::make_unique<HelloWorldHttpModule>().release();
         return S_OK;
     }
 
@@ -140,10 +140,8 @@ HRESULT __stdcall RegisterModule(DWORD serverVersion, IHttpModuleRegistrationInf
     ReportEvent(eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &message, NULL);
     DeregisterEventSource(eventLog);
 
-    HelloWorldGlobalModule * globalModule = new HelloWorldGlobalModule;
-
-    HRESULT hr = moduleInfo->SetGlobalNotifications(globalModule, GL_PRE_BEGIN_REQUEST);
+    HRESULT hr = moduleInfo->SetGlobalNotifications(std::make_unique<HelloWorldGlobalModule>().release(), GL_PRE_BEGIN_REQUEST);
     if (FAILED(hr)) return hr;
 
-    return moduleInfo->SetRequestNotifications(new HelloWorldHttpModuleFactory, RQ_BEGIN_REQUEST, 0);
+    return moduleInfo->SetRequestNotifications(std::make_unique<HelloWorldHttpModuleFactory>().release(), RQ_BEGIN_REQUEST, 0);
 }
