@@ -1,7 +1,5 @@
-﻿// dllmain.cpp : Defines the entry point for the DLL application.
+// dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
-
-using std::wstring;
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
@@ -45,7 +43,7 @@ public:
 private:
     HANDLE _eventLog;
 
-    BOOL WriteEvent(wstring message)
+    BOOL WriteEvent(std::wstring message)
     {
         auto s = message.c_str();
         return ReportEvent(_eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &s, NULL);
@@ -91,7 +89,7 @@ public:
 private:
     HANDLE _eventLog;
 
-    BOOL WriteEvent(wstring message)
+    BOOL WriteEvent(std::wstring message)
     {
         auto s = message.c_str();
         return ReportEvent(_eventLog, EVENTLOG_INFORMATION_TYPE, 0, 0, NULL, 1, 0, &s, NULL);
